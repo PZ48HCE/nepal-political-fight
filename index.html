@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0c11" />
+    <title>Nepal Political Fight - Ultra 3D Arcade Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800;1,900&family=Barlow:wght@400;500;600;700&display=swap"
+    />
+    <script type="module" crossorigin src="./assets/index-Bim5ZxaA.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/three-BUUtjSaD.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-C14mnuvS.css">
+  </head>
+  <body>
+    <dialog
+      id="disclaimer-dialog"
+      class="modal"
+      aria-labelledby="disclaimer-title"
+      aria-describedby="disclaimer-intro"
+    >
+      <p class="modal-eyebrow">NEPAL POLITICAL FIGHT</p>
+      <h2 id="disclaimer-title">FICTIONAL SATIRE.<br /><em>JUST FOR FUN.</em></h2>
+      <p id="disclaimer-intro">
+        This is an <strong>unofficial arcade game for entertainment and political satire</strong>. Public
+        figures appear as fictionalized game characters.
+      </p>
+      <p>
+        The fights, superpowers and reactions are exaggerated fantasy. They are not depictions of real events
+        or statements of fact about anyone's actions, views or character.
+      </p>
+      <p>
+        This game is <strong>not affiliated with, sponsored by or endorsed by</strong> any person, political
+        party or organization depicted.
+      </p>
+      <p>
+        All game violence is fictional. We do not encourage real-world violence, threats, harassment or
+        discrimination. Please play and share respectfully.
+      </p>
+      <button id="accept-disclaimer" class="btn-primary" autofocus>UNDERSTOOD &middot; CONTINUE</button>
+    </dialog>
+    <!-- Modern Game Control Panel Dialog -->
+    <dialog id="control-panel-dialog" class="modal control-modal" aria-labelledby="ctrl-modal-title">
+      <button class="dialog-close" onclick="document.getElementById('control-panel-dialog').close()" aria-label="Close controls">&times;</button>
+      <p class="modal-eyebrow">CONTROLLER & KEYBOARD SETTINGS</p>
+      <h2 id="ctrl-modal-title">GAME <em>CONTROL PANEL</em></h2>
+      
+      <!-- Visual Keyboard & Mouse Cluster Diagram -->
+      <div class="control-panel-grid">
+        <div class="ctrl-card">
+          <span class="ctrl-card-title">MOVEMENT & JUMP (WASD + SPACE)</span>
+          <div class="keyboard-visual">
+            <div class="kb-row center">
+              <div class="key-box"><kbd>W</kbd><span>JUMP / UP</span></div>
+            </div>
+            <div class="kb-row center">
+              <div class="key-box"><kbd>A</kbd><span>MOVE LEFT</span></div>
+              <div class="key-box"><kbd>S</kbd><span>CROUCH / DUCK</span></div>
+              <div class="key-box"><kbd>D</kbd><span>MOVE RIGHT</span></div>
+            </div>
+            <div class="kb-row center">
+              <div class="key-box wide"><kbd class="kbd-space">SPACEBAR</kbd><span>PRIMARY JUMP</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ctrl-card">
+          <span class="ctrl-card-title">COMBAT & ACTIONS (PC & MOUSE)</span>
+          <div class="keyboard-visual">
+            <div class="kb-row">
+              <div class="key-box"><kbd>J</kbd> or <span class="mouse-badge">LMB</span><span>PUNCH COMBO</span></div>
+              <div class="key-box"><kbd>K</kbd> or <span class="mouse-badge">RMB</span><span>KICK / ROUNDHOUSE</span></div>
+            </div>
+            <div class="kb-row">
+              <div class="key-box"><kbd>E</kbd> / <kbd>I</kbd><span>GUARD / PARRY</span></div>
+              <div class="key-box"><kbd>SHIFT</kbd> / <kbd>Q</kbd><span>DASH / EVADE</span></div>
+            </div>
+            <div class="kb-row">
+              <div class="key-box wide gold-box"><kbd>L</kbd> or <kbd>R</kbd><span>SUPER SHAKTI (100% METER)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Combat Techniques & Combos -->
+      <div class="combat-techniques">
+        <div class="tech-item"><b>3-Hit Combo:</b> <kbd>J</kbd> ➔ <kbd>J</kbd> ➔ <kbd>J</kbd> (Jab ➔ Cross ➔ Heavy Uppercut)</div>
+        <div class="tech-item"><b>Roundhouse Kick:</b> <kbd>K</kbd> ➔ <kbd>K</kbd> (Mid Kick ➔ High Roundhouse)</div>
+        <div class="tech-item"><b>Low Sweep:</b> Hold <kbd>S</kbd> + Press <kbd>K</kbd> (Trips rival, causes hard knockdown!)</div>
+        <div class="tech-item"><b>Aerial Strike:</b> Press <kbd>SPACE</kbd> (or <kbd>W</kbd>) then tap <kbd>J</kbd> / <kbd>K</kbd> in mid-air!</div>
+        <div class="tech-item"><b>Perfect Parry:</b> Tap <kbd>E</kbd> right before an attack hits (Reflects strike + Stuns rival!)</div>
+        <div class="tech-item"><b>Super Shakti:</b> Press <kbd>L</kbd> or <kbd>R</kbd> when golden super gauge is 100% full!</div>
+      </div>
+
+      <div class="ctrl-panel-footer">
+        <label class="toggle-label">
+          <input type="checkbox" id="toggle-control-hud" checked onchange="document.getElementById('control-bar').style.display=this.checked?'flex':'none'" />
+          <span>Show On-Screen Control Panel HUD during battle</span>
+        </label>
+        <button class="btn-primary" onclick="document.getElementById('control-panel-dialog').close()">RESUME BRAWL</button>
+      </div>
+    </dialog>
+
+    <canvas id="game" aria-label="Nepal Political Fight arena"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <header>
+      <a class="brand" href="./"
+        ><span class="flag" aria-hidden="true"></span
+        ><span class="brand-text">NEPAL<b>POLITICAL FIGHT</b></span></a
+      ><span class="header-tag">THE STREETS HAVE SPOKEN.</span>
+      <nav aria-label="Game menu">
+        <button id="controls-btn" onclick="document.getElementById('control-panel-dialog').showModal()">🎮 CONTROLS</button>
+        <button id="pause">PAUSE <kbd>ESC</kbd></button>
+        <button id="how-to-play" aria-haspopup="dialog">HOW TO PLAY</button>
+        <button id="select-menu">QUIT MATCH</button>
+      </nav>
+    </header>
+    <main>
+      <div class="hud">
+        <div class="player">
+          <span class="hud-portrait" id="player-portrait" data-character="balen"></span>
+          <div class="hud-side">
+            <div class="name"><strong id="player-name">BALEN</strong><span class="role">YOU</span></div>
+            <div class="health"><b class="trail" id="trail1"></b><i id="hp1"></i></div>
+            <div class="hud-sub">
+              <div class="guard" title="Guard strength"><i id="guard1"></i></div>
+              <span class="pips" id="pips1" role="img" aria-label="Rounds won: 0"></span>
+            </div>
+            <div class="super-gauge">
+              <div class="charge" title="Super meter"><i id="energy"></i></div>
+              <span class="label-super">SUPER</span>
+            </div>
+          </div>
+        </div>
+        <div class="clock">
+          <strong id="timer">60</strong><span>ROUND <b id="round">01</b></span
+          ><span id="score" class="visually-hidden">0 - 0</span>
+        </div>
+        <div class="player enemy">
+          <span class="hud-portrait" id="opponent-portrait" data-character="kp"></span>
+          <div class="hud-side">
+            <div class="name"><span class="role">CPU</span><strong id="opponent-name">KP</strong></div>
+            <div class="health"><b class="trail" id="trail2"></b><i id="hp2"></i></div>
+            <div class="hud-sub">
+              <span class="pips" id="pips2" role="img" aria-label="Rounds won: 0"></span>
+              <div class="guard" title="Opponent guard"><i id="guard2"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="callout" role="status" aria-live="polite" aria-atomic="true"></div>
+      <section id="overlay" aria-label="Character selection">
+        <div class="selection-toolbar">
+          <div class="menu-top">
+            <p class="menu-kicker">ARCADE SATIRE BRAWLER</p>
+            <h1>Select your <em>fighter</em></h1>
+          </div>
+          <div class="selection-options">
+            <div class="play-modes segmented" role="group" aria-label="Game mode">
+              <button id="cpu-mode">VS CPU</button><button id="online-mode">PLAY WITH FRIENDS</button>
+            </div>
+            <label class="nickname-row" for="nickname"
+              ><span>NICKNAME</span
+              ><input
+                id="nickname"
+                name="nickname"
+                maxlength="18"
+                autocomplete="nickname"
+                placeholder="Enter nickname"
+                spellcheck="false"
+            /></label>
+          </div>
+        </div>
+        <div id="result" role="status" hidden></div>
+        <section id="network-panel" hidden>
+          <div class="network-actions">
+            <span class="room-label">ROOM</span><span id="room-code">----</span
+            ><button id="invite-friend">INVITE / JOIN</button><button id="leave-room">LEAVE</button>
+          </div>
+          <p id="network-status" role="status">Create or join a room.</p>
+        </section>
+        <section id="league-panel" hidden>
+          <div class="friends-heading">
+            <h2 id="league-title"></h2>
+            <div class="friends-room-actions">
+              <button id="advanced-settings">ADVANCED SETTINGS</button
+              ><button id="host-start" hidden>START TOURNAMENT</button>
+            </div>
+          </div>
+          <p id="league-info"></p>
+          <p id="room-rules-summary"></p>
+          <p id="room-rules-notice" role="status"></p>
+          <div id="league-table"></div>
+          <details>
+            <summary>MATCH RESULTS</summary>
+            <div id="league-results"></div>
+          </details>
+        </section>
+        <div class="duel-select">
+          <section class="selection yours">
+            <div class="slot-label"><b>P1</b><span>YOUR FIGHTER</span><small>YOU</small></div>
+            <section class="model-stage" aria-label="player model preview" data-slot="player">
+              <canvas id="player-preview" aria-label="Animated player model"></canvas>
+              <div class="preview-caption">
+                <span class="preview-role">YOUR FIGHTER</span><strong class="preview-name">BALEN</strong
+                ><span class="preview-power"
+                  ><small class="power-owner">BALEN'S SUPER</small
+                  ><b class="power-name">DOZER SHAKTI</b></span
+                >
+              </div>
+              <div class="preview-loading">LOADING</div>
+            </section>
+            <div class="character-grid" role="group" aria-label="Your character">
+              <button
+                class="character selected"
+                data-slot="player"
+                data-character="balen"
+                aria-pressed="true"
+              >
+                <img src="./portraits/balen.png" alt="" width="38" height="45" />
+                <div><strong>BALEN</strong><span class="pick-label">SELECTED</span></div></button
+              ><button class="character" data-slot="player" data-character="kp" aria-pressed="false">
+                <img src="./portraits/kp.png" alt="" width="38" height="45" />
+                <div><strong>KP</strong><span class="pick-label">SELECT</span></div></button
+              ><button class="character" data-slot="player" data-character="harka" aria-pressed="false">
+                <img src="./portraits/harka.png" alt="" width="38" height="45" />
+                <div><strong>HARKA</strong><span class="pick-label">SELECT</span></div></button
+              ><button class="character" data-slot="player" data-character="ashika" aria-pressed="false">
+                <img src="./portraits/ashika.png" alt="" width="38" height="45" />
+                <div><strong>ASHIKA</strong><span class="pick-label">SELECT</span></div>
+              </button>
+            </div>
+          </section>
+          <div class="versus">VS<span>BEST OF 3</span></div>
+          <section class="selection theirs">
+            <div class="slot-label"><b>P2</b><span>OPPONENT</span><small>CPU</small></div>
+            <section class="model-stage" aria-label="opponent model preview" data-slot="opponent">
+              <canvas id="opponent-preview" aria-label="Animated opponent model"></canvas>
+              <div class="preview-caption">
+                <span class="preview-role">CPU OPPONENT</span><strong class="preview-name">KP</strong
+                ><span class="preview-power"
+                  ><small class="power-owner">KP OLI'S SUPER</small
+                  ><b class="power-name">JAHAJ SHAKTI</b></span
+                >
+              </div>
+              <div class="preview-loading">LOADING</div>
+            </section>
+            <div class="character-grid" role="group" aria-label="Opponent character">
+              <button class="character" data-slot="opponent" data-character="balen" aria-pressed="false">
+                <img src="./portraits/balen.png" alt="" width="38" height="45" />
+                <div><strong>BALEN</strong><span class="pick-label">SELECT</span></div></button
+              ><button
+                class="character selected"
+                data-slot="opponent"
+                data-character="kp"
+                aria-pressed="true"
+              >
+                <img src="./portraits/kp.png" alt="" width="38" height="45" />
+                <div><strong>KP</strong><span class="pick-label">SELECTED</span></div></button
+              ><button class="character" data-slot="opponent" data-character="harka" aria-pressed="false">
+                <img src="./portraits/harka.png" alt="" width="38" height="45" />
+                <div><strong>HARKA</strong><span class="pick-label">SELECT</span></div></button
+              ><button class="character" data-slot="opponent" data-character="ashika" aria-pressed="false">
+                <img src="./portraits/ashika.png" alt="" width="38" height="45" />
+                <div><strong>ASHIKA</strong><span class="pick-label">SELECT</span></div>
+              </button>
+            </div>
+          </section>
+        </div>
+        <div class="menu-bottom">
+          <label class="difficulty-label"
+            ><span>CPU LEVEL</span
+            ><select id="difficulty" aria-label="Opponent difficulty">
+              <option value="easy">EASY</option>
+              <option value="normal" selected>NORMAL</option>
+              <option value="hard">HARD</option>
+            </select></label
+          >
+          <p id="selection-status" role="status">BALEN <span>vs</span> KP</p>
+          <button id="start">PLAY</button>
+        </div>
+        <footer class="menu-foot">
+          <p class="menu-foot-note">
+            FICTIONAL POLITICAL SATIRE <button id="view-disclaimer" aria-haspopup="dialog">DISCLAIMER</button>
+          </p>
+          <nav class="dev-credits" aria-label="Developers">
+            <span class="dev-label">CREATED &amp; DEVELOPED BY</span>
+            <a
+              class="dev-link"
+              href="https://github.com/PZ48HCE"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="PZ48HCE on GitHub (opens in a new tab)"
+            >
+              <svg class="dev-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
+                />
+              </svg>
+              <span>PZ48HCE</span>
+            </a>
+          </nav>
+        </footer>
+      </section>
+    </main>
+    <details id="league-live" hidden>
+      <summary id="league-watch-label">LEAGUE STANDINGS</summary>
+      <p id="league-current"></p>
+      <div id="league-live-table"></div>
+    </details>
+    <div class="pause-hint"><kbd>Esc</kbd> Menu</div>
+    <!-- Persistent Interactive Bottom Control Panel HUD (Active Key Indicators) -->
+    <div id="control-bar" class="control-hud-bar" role="region" aria-label="Game Controls HUD">
+      <div class="ctrl-badge" data-key="move"><kbd>A</kbd><kbd>D</kbd><span>MOVE</span></div>
+      <div class="ctrl-badge" data-key="space"><kbd class="kbd-wide">SPACE</kbd><span>JUMP</span></div>
+      <div class="ctrl-badge" data-key="w"><kbd>W</kbd><span>UP</span></div>
+      <div class="ctrl-badge" data-key="s"><kbd>S</kbd><span>CROUCH</span></div>
+      <div class="ctrl-badge action-blue" data-key="j"><kbd>J</kbd> / <i class="mouse-icon">LMB</i><span>PUNCH</span></div>
+      <div class="ctrl-badge action-amber" data-key="k"><kbd>K</kbd> / <i class="mouse-icon">RMB</i><span>KICK</span></div>
+      <div class="ctrl-badge action-green" data-key="e"><kbd>E</kbd><span>GUARD</span></div>
+      <div class="ctrl-badge action-purple" data-key="shift"><kbd class="kbd-wide">SHIFT</kbd><span>DASH</span></div>
+      <div class="ctrl-badge action-gold" data-key="l"><kbd>L</kbd> / <kbd>R</kbd><span>SUPER</span></div>
+    </div>
+
+    <div id="touch" role="group" aria-label="Touch fight controls">
+      <div class="movement-controls">
+        <div
+          id="fight-stick"
+          aria-label="Directional pad: drag left or right to move, up to jump, down to crouch"
+          role="group"
+        >
+          <span class="stick-direction stick-up">&#9650;</span
+          ><span class="stick-direction stick-left">&#9664;</span
+          ><span class="stick-direction stick-right">&#9654;</span
+          ><span class="stick-direction stick-down">&#9660;</span><span class="stick-knob"></span>
+        </div>
+      </div>
+      <div class="touch-actions">
+        <button class="action-evade" data-key="q" aria-label="Evade backward">EVADE</button
+        ><button class="action-guard" data-key="e" aria-label="Hold to guard, tap before impact to parry">
+          GUARD</button
+        ><button
+          class="action-punch"
+          data-key="j"
+          aria-label="Punch; down plus punch for low jab; forward plus punch for uppercut"
+        >
+          PUNCH</button
+        ><button
+          class="action-kick"
+          data-key="k"
+          aria-label="Kick; down plus kick for sweep; forward plus kick for roundhouse"
+        >
+          KICK</button
+        ><button class="action-super" data-key="l" aria-label="Super power, needs a full meter">
+          <span class="super-fill" aria-hidden="true"></span><span class="super-text">SUPER</span></button
+        ><span class="touch-combo-hint"
+          >&#9660;+HIT LOW &middot; &#9654;+HIT HEAVY &middot; GUARD+PUNCH GRAB</span
+        >
+      </div>
+    </div>
+    <dialog id="invite-dialog" class="modal" aria-labelledby="invite-title">
+      <button id="close-invite" class="dialog-close" aria-label="Close invite dialog">&#215;</button>
+      <p class="modal-eyebrow">PLAY WITH FRIENDS</p>
+      <h2 id="invite-title">BRING A <em>RIVAL.</em></h2>
+      <p class="invite-description">One code. 2 to 8 fighters. Settle it together.</p>
+      <label class="field" for="invite-nickname"
+        ><span>YOUR NICKNAME</span
+        ><input id="invite-nickname" maxlength="18" autocomplete="nickname" placeholder="Enter nickname"
+      /></label>
+      <div class="invite-tabs segmented" role="group" aria-label="Invitation options">
+        <button id="invite-create-tab" aria-pressed="true">CREATE ROOM</button
+        ><button id="invite-join-tab" aria-pressed="false">JOIN ROOM</button>
+      </div>
+      <section id="invite-create-view">
+        <p class="invite-label">YOUR ROOM CODE</p>
+        <div class="invite-code-row">
+          <strong id="invite-code">----</strong><button id="copy-room-code" disabled>COPY</button>
+        </div>
+        <p class="invite-hint">Share this four-character code with your friends.</p>
+        <button id="create-room" class="btn-primary">GENERATE CODE</button>
+      </section>
+      <form id="invite-join-view" hidden>
+        <label class="invite-label" for="join-code">ENTER YOUR FRIEND'S CODE</label
+        ><input
+          id="join-code"
+          name="code"
+          aria-label="Room code"
+          maxlength="4"
+          minlength="4"
+          pattern="[A-Za-z0-9]{4}"
+          autocomplete="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          placeholder="AB7K"
+          required
+        /><button id="join-room" class="btn-primary" type="submit">JOIN THE ROOM</button>
+      </form>
+      <p id="room-dialog-status" role="status" aria-live="polite"></p>
+      <button id="invite-done" class="btn-primary" hidden>CHOOSE YOUR FIGHTER &#8594;</button>
+      <p class="modal-foot">Everyone must open the same game server.</p>
+    </dialog>
+  </body>
+</html>

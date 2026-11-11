@@ -1,0 +1,980 @@
+/* Nepal Political Fight - Upgraded Arcade Styles */
+:root {
+  color-scheme: dark;
+  --bg: #0b0c11;
+  --bg-2: #11131a;
+  --surface: #161922;
+  --surface-2: #1e2230;
+  --surface-3: #272c3c;
+  --line: #2b3040;
+  --line-strong: #454c62;
+  --text: #f6f2ea;
+  --muted: #a5acbd;
+  --dim: #6f7689;
+  --p1: #ff3d50;
+  --p1-deep: #8e1420;
+  --p2: #3d8bff;
+  --p2-deep: #10357d;
+  --gold: #ffc53d;
+  --gold-soft: #ffe7a6;
+  --good: #3fdc87;
+  --danger: #ff5a4f;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: Barlow, "Segoe UI", system-ui, sans-serif;
+  --header-h: 60px;
+  --gutter: max(16px, env(safe-area-inset-left));
+  --gutter-r: max(16px, env(safe-area-inset-right));
+  --cut: 10px;
+  --slant: polygon(var(--cut) 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  font-family: var(--body);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+*, *:before, *:after { box-sizing: border-box; }
+body { margin: 0; overflow: hidden; background: var(--bg); user-select: none; }
+button, select, input { font: inherit; color: inherit; }
+button, select { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border: 1px solid var(--line-strong);
+  border-bottom-width: 3px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: 700 11px/1 var(--body), sans-serif;
+  letter-spacing: .5px;
+}
+
+[hidden] { display: none !important; }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 3D Canvas */
+#game {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 4px 4px;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-h);
+  padding: 0 var(--gutter-r) 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, rgba(11, 12, 17, 0.95), transparent);
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.flag {
+  width: 22px;
+  height: 28px;
+  background: #dc2626;
+  clip-path: polygon(0 0, 100% 35%, 25% 45%, 100% 80%, 0 100%);
+  display: inline-block;
+  border-left: 3px solid #1e3a8a;
+}
+
+.brand-text {
+  font: italic 900 20px/1 var(--display);
+  letter-spacing: 1px;
+}
+.brand-text b { color: var(--gold); margin-left: 5px; }
+
+.header-tag {
+  color: var(--muted);
+  font: 800 11px/1 var(--body);
+  letter-spacing: 2px;
+}
+
+nav { display: flex; gap: 8px; }
+nav button {
+  padding: 6px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  clip-path: var(--slant);
+  font: 700 12px/1 var(--body);
+  letter-spacing: 1px;
+  transition: background 0.15s, border-color 0.15s;
+}
+nav button:hover {
+  background: var(--surface-3);
+  border-color: var(--gold);
+}
+
+/* In-Game HUD */
+.hud {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top));
+  left: var(--gutter);
+  right: var(--gutter-r);
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+  max-width: 1280px;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.player {
+  --side: var(--p1);
+  --side-deep: var(--p1-deep);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+.player.enemy {
+  --side: var(--p2);
+  --side-deep: var(--p2-deep);
+  flex-direction: row-reverse;
+}
+
+.hud-portrait {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-bottom: 3px solid var(--side);
+  clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
+  background-size: cover;
+  background-position: center top;
+  background-color: var(--side-deep);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+.enemy .hud-portrait { transform: scaleX(-1); }
+
+.hud-side { flex: 1; min-width: 0; }
+.hud .name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.enemy .name { justify-content: flex-end; }
+.hud .name strong {
+  font: italic 900 24px/1 var(--display);
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px #000;
+}
+.hud .role {
+  padding: 3px 6px;
+  border-radius: 3px;
+  background: var(--side);
+  color: #fff;
+  font: 800 10px/1 var(--body);
+  letter-spacing: 1.2px;
+}
+
+.health {
+  position: relative;
+  height: 24px;
+  overflow: hidden;
+  background: #05060acc;
+  border: 1px solid #ffffff2e;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  box-shadow: inset 0 2px 6px #000;
+}
+.enemy .health { clip-path: polygon(0 0, 100% 0, 100% 100%, 14px 100%); }
+
+.health i, .health .trail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.enemy .health i, .enemy .health .trail { left: auto; right: 0; }
+.health i {
+  background: linear-gradient(180deg, #ffffff55, transparent 45%), linear-gradient(90deg, var(--side-deep), var(--side));
+  transition: width 0.12s;
+}
+.enemy .health i {
+  background: linear-gradient(180deg, #ffffff55, transparent 45%), linear-gradient(270deg, var(--side-deep), var(--side));
+}
+.health .trail {
+  background: #fff1c2;
+  transition: width 0.45s ease-in 0.3s;
+}
+
+.hud-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;
+}
+.hud .guard {
+  flex: 0 1 48%;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #05060acc;
+}
+.hud .guard i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #4fd8ff, #b8f1ff);
+  transition: width 0.15s;
+}
+.enemy .guard i { margin-left: auto; }
+
+.pips { display: flex; gap: 6px; }
+.pips i {
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  border: 2px solid #ffffff70;
+  background: #05060a99;
+}
+.pips i.won {
+  border-color: var(--gold);
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold);
+}
+
+/* Super Gauge */
+.super-gauge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.hud .charge {
+  position: relative;
+  flex: 0 1 62%;
+  height: 12px;
+  overflow: hidden;
+  background: #05060acc;
+  border: 1px solid #ffc53d55;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+.hud .charge i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #ff8a2b, var(--gold));
+  transition: width 0.15s;
+}
+.label-super {
+  color: var(--gold);
+  font: italic 900 14px/1 var(--display);
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 6px #000;
+}
+
+.action-super.ready, .super-ready .charge {
+  border-color: var(--gold);
+  box-shadow: 0 0 16px var(--gold);
+  animation: hud-pulse 0.9s ease-in-out infinite;
+}
+
+.hud .clock {
+  display: grid;
+  justify-items: center;
+  min-width: 88px;
+  padding: 6px 10px 16px;
+  clip-path: polygon(0 0, 100% 0, 100% 76%, 50% 100%, 0 76%);
+  border-top: 3px solid var(--gold);
+  background: linear-gradient(180deg, #161922f2, #0b0c11e8);
+}
+.hud .clock strong {
+  color: var(--text);
+  font: italic 900 46px/0.95 var(--display);
+  font-variant-numeric: tabular-nums;
+}
+.hud .clock > span {
+  color: var(--muted);
+  font: 800 11px/1 var(--body);
+  letter-spacing: 1.5px;
+}
+.hud .clock b { color: var(--gold); }
+
+/* Center Callout */
+#callout {
+  position: fixed;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  font: italic 900 clamp(48px, 9vw, 110px)/1 var(--display);
+  letter-spacing: 3px;
+  color: #fff;
+  text-shadow: 4px 4px 0 #ff3d50, -3px -3px 0 #1e3a8a, 0 8px 30px rgba(0,0,0,0.9);
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s var(--ease-out);
+}
+
+/* Character Selection Overlay */
+#overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: radial-gradient(circle at 50% 30%, rgba(22, 25, 34, 0.95), rgba(11, 12, 17, 0.98));
+  overflow-y: auto;
+  padding: calc(var(--header-h) + 16px) var(--gutter) 40px;
+}
+
+.selection-toolbar {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+}
+
+.menu-kicker {
+  color: var(--gold);
+  font: 800 12px/1 var(--body);
+  letter-spacing: 3px;
+  margin: 0 0 4px;
+}
+.selection-toolbar h1 {
+  margin: 0;
+  font: italic 900 clamp(32px, 5vw, 48px)/1 var(--display);
+  letter-spacing: 1px;
+}
+.selection-toolbar h1 em {
+  font-style: italic;
+  color: var(--p1);
+}
+
+.segmented {
+  display: inline-flex;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  padding: 3px;
+  border-radius: 4px;
+}
+.segmented button {
+  padding: 8px 18px;
+  background: transparent;
+  border: none;
+  font: 700 12px/1 var(--body);
+  letter-spacing: 1px;
+  color: var(--muted);
+  border-radius: 3px;
+}
+.segmented button.active, .segmented button[aria-pressed="true"] {
+  background: var(--gold);
+  color: #0b0c11;
+  font-weight: 800;
+}
+
+.duel-select {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+}
+
+.selection {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 20px;
+  border-radius: 6px;
+}
+.selection.yours { border-top: 4px solid var(--p1); }
+.selection.theirs { border-top: 4px solid var(--p2); }
+
+.slot-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.slot-label b {
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--line-strong);
+  font: 900 11px/1 var(--body);
+}
+.slot-label span {
+  font: 800 13px/1 var(--body);
+  letter-spacing: 1px;
+}
+.slot-label small {
+  margin-left: auto;
+  color: var(--gold);
+  font: 700 11px/1 var(--body);
+}
+
+.model-stage {
+  position: relative;
+  height: 380px;
+  background: radial-gradient(circle at 50% 80%, #1e2230, #11131a);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.model-stage canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.preview-caption {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  pointer-events: none;
+}
+.preview-name {
+  display: block;
+  font: italic 900 38px/1 var(--display);
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+.preview-power {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6px;
+}
+.power-owner {
+  color: var(--muted);
+  font: 800 11px/1 var(--body);
+  letter-spacing: 1px;
+}
+.power-name {
+  color: var(--gold);
+  font: italic 900 18px/1 var(--display);
+  letter-spacing: 1px;
+}
+
+/* Character Grid Buttons */
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+.character-grid button.character {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+.character-grid button.character img {
+  width: 38px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 2px;
+  background: #000;
+}
+.character-grid button.character strong {
+  display: block;
+  font: italic 900 16px/1 var(--display);
+  letter-spacing: 0.5px;
+}
+.character-grid button.character .pick-label {
+  display: block;
+  font: 700 9px/1 var(--body);
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 3px;
+}
+.character-grid button.character:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.character-grid button.character.selected {
+  border-color: var(--gold);
+  background: var(--surface-3);
+  box-shadow: 0 0 12px rgba(255, 197, 61, 0.25);
+}
+.character-grid button.character.selected .pick-label {
+  color: var(--gold);
+}
+
+.versus {
+  font: italic 900 36px/1 var(--display);
+  letter-spacing: 2px;
+  color: var(--gold);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.versus span {
+  font: 800 11px/1 var(--body);
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.menu-bottom {
+  max-width: 1200px;
+  margin: 24px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+.difficulty-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 800 12px/1 var(--body);
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.difficulty-label select {
+  padding: 8px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  font: 800 13px/1 var(--body);
+  color: var(--gold);
+}
+
+#selection-status {
+  font: italic 900 24px/1 var(--display);
+  letter-spacing: 1px;
+  margin: 0;
+}
+#selection-status span { color: var(--gold); margin: 0 8px; }
+
+#start, .btn-primary {
+  padding: 14px 44px;
+  background: linear-gradient(135deg, #ff3d50, #d91d32);
+  border: none;
+  clip-path: var(--slant);
+  font: italic 900 24px/1 var(--display);
+  letter-spacing: 2px;
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(255, 61, 80, 0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+#start:hover, .btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 24px rgba(255, 61, 80, 0.6);
+}
+
+/* Super Cinematic Banner */
+.super-cinematic-banner {
+  position: fixed;
+  left: max(5%, env(safe-area-inset-left));
+  bottom: 12vh;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-50px) skew(-8deg);
+  transition: opacity 0.35s, transform 0.35s var(--ease-out);
+}
+.super-cinematic-banner.visible {
+  opacity: 1;
+  transform: translateX(0) skew(-8deg);
+}
+
+.banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(11, 12, 17, 0.92);
+  border: 2px solid var(--banner-accent, var(--gold));
+  padding: 12px 28px 12px 16px;
+  border-radius: 6px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--banner-accent, var(--gold));
+}
+
+.banner-portrait-wrap img {
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+
+.banner-owner {
+  display: block;
+  font: 800 11px/1 var(--body);
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+.banner-name {
+  display: block;
+  font: italic 900 clamp(32px, 5vw, 64px)/1 var(--display);
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+.banner-quote {
+  margin: 4px 0 0;
+  font: 700 13px/1.3 var(--body);
+  color: var(--gold);
+}
+
+/* Touch Controls */
+#touch {
+  position: fixed;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  left: var(--gutter);
+  right: var(--gutter-r);
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+}
+@media (min-width: 900px) {
+  #touch { display: none; }
+}
+
+.movement-controls, .touch-actions { pointer-events: auto; }
+
+#fight-stick {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: rgba(22, 25, 34, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  touch-action: none;
+}
+.stick-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff3d50, #8e1420);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.touch-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 62px);
+  gap: 10px;
+}
+.touch-actions button {
+  height: 62px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 2px solid var(--line-strong);
+  font: 900 12px/1 var(--body);
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+.action-punch { border-color: #3b82f6 !important; color: #60a5fa; }
+.action-kick { border-color: #f59e0b !important; color: #fbbf24; }
+.action-guard { border-color: #10b981 !important; color: #34d399; }
+.action-evade { border-color: #a855f7 !important; color: #c084fc; }
+.action-super {
+  grid-column: span 2;
+  border-radius: 30px !important;
+  background: linear-gradient(135deg, #b91c1c, #dc2626) !important;
+  border-color: var(--gold) !important;
+  color: #fff !important;
+  font: italic 900 18px/1 var(--display) !important;
+}
+
+/* Modals */
+.modal {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 28px;
+  max-width: 540px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.8);
+}
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+}
+.modal-eyebrow {
+  color: var(--gold);
+  font: 800 11px/1 var(--body);
+  letter-spacing: 2px;
+  margin: 0 0 6px;
+}
+.modal h2 {
+  font: italic 900 32px/1.1 var(--display);
+  margin: 0 0 16px;
+}
+.modal h2 em { color: var(--p1); font-style: italic; }
+.modal p {
+  color: var(--muted);
+  font: 500 14px/1.6 var(--body);
+  margin: 0 0 12px;
+}
+
+/* ==========================================
+   MODERN GAME CONTROL PANEL & HUD BAR
+   ========================================== */
+
+.dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.dialog-close:hover { color: #fff; }
+
+.control-modal {
+  max-width: 680px;
+  width: 90vw;
+  position: relative;
+  background: radial-gradient(circle at 50% 20%, #1e2230, #11131a);
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 35px rgba(255, 197, 61, 0.25), 0 20px 50px rgba(0, 0, 0, 0.9);
+}
+
+.control-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+@media (max-width: 600px) {
+  .control-panel-grid { grid-template-columns: 1fr; }
+}
+
+.ctrl-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px;
+}
+
+.ctrl-card-title {
+  display: block;
+  font: 800 11px/1 var(--body);
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+}
+
+.keyboard-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kb-row {
+  display: flex;
+  gap: 8px;
+}
+.kb-row.center { justify-content: center; }
+
+.key-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 6px 10px;
+  flex: 1;
+}
+.key-box.wide { flex: 2.2; }
+.key-box.gold-box { border-color: var(--gold); background: rgba(255, 197, 61, 0.08); }
+
+.key-box kbd {
+  font-size: 13px;
+  height: 26px;
+  min-width: 26px;
+  background: #0f172a;
+  color: #fff;
+  border-color: #38bdf8;
+  box-shadow: 0 2px 0 #0284c7;
+}
+.key-box kbd.kbd-space { min-width: 120px; }
+
+.key-box span {
+  font: 800 9px/1 var(--body);
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.mouse-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: #1e3a8a;
+  border: 1px solid #60a5fa;
+  border-radius: 12px;
+  font: 800 11px/1 var(--body);
+  color: #fff;
+  margin-left: 4px;
+}
+
+.combat-techniques {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+.tech-item b { color: var(--gold); }
+
+.ctrl-panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 600 12px/1 var(--body);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* Persistent Bottom Control HUD Bar */
+.control-hud-bar {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(11, 13, 19, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 30px;
+  padding: 6px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+@media (max-width: 900px) {
+  .control-hud-bar { display: none !important; }
+}
+
+.ctrl-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  background: rgba(30, 34, 48, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  transition: transform 0.1s, border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.ctrl-badge kbd {
+  height: 20px;
+  min-width: 20px;
+  font-size: 11px;
+  padding: 0 4px;
+}
+.ctrl-badge kbd.kbd-wide { min-width: 44px; }
+.ctrl-badge span {
+  font: 800 10px/1 var(--body);
+  letter-spacing: 0.8px;
+  color: var(--muted);
+}
+.ctrl-badge i.mouse-icon {
+  font-style: normal;
+  font: 800 9px/1 var(--body);
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* Active Pressed Glow Animations */
+.ctrl-badge.active {
+  transform: translateY(-2px) scale(1.08);
+  background: var(--surface-3);
+  border-color: #fff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+}
+.ctrl-badge.active span { color: #fff; }
+
+.ctrl-badge.action-blue.active {
+  border-color: #3b82f6;
+  box-shadow: 0 0 14px #3b82f6;
+}
+.ctrl-badge.action-amber.active {
+  border-color: #f59e0b;
+  box-shadow: 0 0 14px #f59e0b;
+}
+.ctrl-badge.action-green.active {
+  border-color: #10b981;
+  box-shadow: 0 0 14px #10b981;
+}
+.ctrl-badge.action-purple.active {
+  border-color: #a855f7;
+  box-shadow: 0 0 14px #a855f7;
+}
+.ctrl-badge.action-gold.active {
+  border-color: #ffc53d;
+  box-shadow: 0 0 16px #ffc53d;
+}
+
