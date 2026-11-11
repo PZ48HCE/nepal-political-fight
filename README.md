@@ -1,6 +1,6 @@
 # 🇳🇵 Nepal Political Fight — Ultra 3D Arcade Edition
 
-> Created & Modded by **[PZ48HCE](https://github.com/PZ48HCE)**
+> Created & Modded by **[PZ48HCE](https://github.com/PZ48HCE)** | 🎮 **[Play Live](https://pz48hce.github.io/nepal-political-fight/)**
 >
 > An upgraded 3D satirical arcade fighting game featuring **authentic rigged 3D character models**, **real character voices + viral video/reel meme sound effects**, and **modern PC controls (`WASD` + `Space` + `Shift` + Mouse)**.
 
