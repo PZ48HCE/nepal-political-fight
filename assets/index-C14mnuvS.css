@@ -62,3 +62,4 @@ body:not(.playing) .control-hud-bar,body.train-cinematic .control-hud-bar{displa
 .public-room-join{padding:8px 14px;border:0;border-radius:6px;background:var(--p1);color:#fff;font:800 13px/1 var(--display),sans-serif;letter-spacing:1px;cursor:pointer}
 .public-room-join:disabled{opacity:.45;cursor:not-allowed}
 .public-room-empty{margin:6px 0;color:var(--muted);font:500 13px/1.4 var(--body),sans-serif;text-align:center}
+.dev-link-ig{--in:#e1306c}
