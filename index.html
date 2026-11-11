@@ -50,7 +50,7 @@
     </dialog>
     <!-- Modern Game Control Panel Dialog -->
     <dialog id="control-panel-dialog" class="modal control-modal" aria-labelledby="ctrl-modal-title">
-      <button class="dialog-close" onclick="document.getElementById('control-panel-dialog').close()" aria-label="Close controls">&times;</button>
+      <button class="dialog-close" data-close-controls aria-label="Close controls">&times;</button>
       <p class="modal-eyebrow">CONTROLLER & KEYBOARD SETTINGS</p>
       <h2 id="ctrl-modal-title">GAME <em>CONTROL PANEL</em></h2>
       
@@ -103,10 +103,10 @@
 
       <div class="ctrl-panel-footer">
         <label class="toggle-label">
-          <input type="checkbox" id="toggle-control-hud" checked onchange="document.getElementById('control-bar').style.display=this.checked?'flex':'none'" />
+          <input type="checkbox" id="toggle-control-hud" checked />
           <span>Show On-Screen Control Panel HUD during battle</span>
         </label>
-        <button class="btn-primary" onclick="document.getElementById('control-panel-dialog').close()">RESUME BRAWL</button>
+        <button class="btn-primary" data-close-controls>RESUME BRAWL</button>
       </div>
     </dialog>
 
@@ -119,7 +119,7 @@
       ><span class="header-tag">THE STREETS HAVE SPOKEN.</span>
       <nav aria-label="Game menu">
         <button id="audio-toggle" aria-pressed="false" title="Adjust or mute sound effects">🔊 SFX: 55%</button>
-        <button id="controls-btn" onclick="document.getElementById('control-panel-dialog').showModal()">🎮 CONTROLS</button>
+        <button id="controls-btn" aria-haspopup="dialog">🎮 CONTROLS</button>
         <button id="pause">PAUSE <kbd>ESC</kbd></button>
         <button id="how-to-play" aria-haspopup="dialog">HOW TO PLAY</button>
         <button id="select-menu">QUIT MATCH</button>
