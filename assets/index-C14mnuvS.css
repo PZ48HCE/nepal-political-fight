@@ -189,3 +189,229 @@ body.cinematic-mode .cine-bar.bottom,body.train-cinematic .cine-bar.bottom{trans
   .paper-notes{font-size:9.5px;line-height:1.2}
   .paper-stamp{font-size:20px;padding:1px 8px;bottom:8px;right:10px}
 }
+
+
+/* FLOATING COMIC SPEECH BUBBLES */
+#speech-layer{position:fixed;inset:0;pointer-events:none;z-index:10;overflow:hidden}
+.speech-bubble{
+  position:absolute;
+  transform:translate(-50%,-100%);
+  background:#ffffff;
+  color:#11131a;
+  font-family:var(--display),Impact,sans-serif;
+  font-weight:900;
+  font-size:clamp(14px,3.2vw,22px);
+  letter-spacing:.6px;
+  line-height:1.15;
+  padding:6px 14px 7px;
+  border-radius:14px;
+  border:2.5px solid #11131a;
+  box-shadow:0 6px 18px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3);
+  white-space:nowrap;
+  pointer-events:none;
+  user-select:none;
+  animation:speechBubbleIn .28s cubic-bezier(.17,1.4,.32,1) both;
+}
+.speech-bubble:after{
+  content:"";
+  position:absolute;
+  bottom:-10px;
+  left:50%;
+  transform:translateX(-50%);
+  border-left:8px solid transparent;
+  border-right:8px solid transparent;
+  border-top:10px solid #ffffff;
+}
+.speech-bubble:before{
+  content:"";
+  position:absolute;
+  bottom:-13px;
+  left:50%;
+  transform:translateX(-50%);
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  border-top:13px solid #11131a;
+}
+.speech-bubble.super-shout{
+  background:#ffc53d;
+  color:#11131a;
+  border-color:#11131a;
+  font-size:clamp(16px,3.8vw,26px);
+  box-shadow:0 0 20px #ffc53d88, 0 6px 20px rgba(0,0,0,0.6);
+}
+.speech-bubble.super-shout:after{border-top-color:#ffc53d}
+@keyframes speechBubbleIn{
+  0%{opacity:0;transform:translate(-50%,-75%) scale(0.5) rotate(-4deg)}
+  100%{opacity:1;transform:translate(-50%,-100%) scale(1) rotate(0deg)}
+}
+.speech-bubble.fade-out{
+  opacity:0;
+  transform:translate(-50%,-120%) scale(0.85);
+  transition:opacity .35s ease-out, transform .35s ease-out;
+}
+
+/* SATIRICAL BROADCAST NEWSDESK TICKER */
+#newsdesk{
+  display:none;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:32px;
+  z-index:5;
+  background:linear-gradient(90deg,#991b1b 0%,#b91c1c 18%,#161922 45%,#11131a 100%);
+  border-top:2px solid #ffc53d;
+  box-shadow:0 -4px 16px rgba(0,0,0,0.7);
+  align-items:center;
+  pointer-events:none;
+  user-select:none;
+  overflow:hidden;
+}
+body.playing:not(.game-menu-open) #newsdesk{display:flex}
+.newsdesk-badge{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  height:100%;
+  padding:0 14px;
+  background:#7f1d1d;
+  border-right:2px solid #ffc53d;
+  color:#fef08a;
+  font-family:var(--display),Impact,sans-serif;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.live-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#ef4444;
+  box-shadow:0 0 8px #ef4444;
+  animation:livePulse 1s ease-in-out infinite;
+}
+@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.newsdesk-window{
+  flex:1;
+  height:100%;
+  position:relative;
+  overflow:hidden;
+}
+.newsdesk-track{
+  display:flex;
+  align-items:center;
+  white-space:nowrap;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  animation:tickerScroll 40s linear infinite;
+  gap:16px;
+  padding-left:10px;
+}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{
+  font-family:var(--body),system-ui,sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  color:#f1f5f9;
+  letter-spacing:.4px;
+}
+.ticker-sep{color:#ffc53d;font-weight:900}
+
+/* Dual Caricature Anchors Debate Box */
+.newsdesk-debate{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  height:100%;
+  padding:0 14px;
+  background:#1e2433;
+  border-left:2px solid #334155;
+  font-family:var(--display),Impact,sans-serif;
+}
+.debate-anchor{display:flex;align-items:center;gap:6px}
+.anchor-name{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.8px;
+  padding:2px 6px;
+  border-radius:3px;
+  background:#dc2626;
+  color:#fff;
+}
+.anchor-left .anchor-name{background:#dc2626}
+.anchor-right .anchor-name{background:#2563eb}
+.anchor-quote{
+  font-size:11px;
+  font-weight:700;
+  color:#fef08a;
+  letter-spacing:.3px;
+  max-width:210px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.debate-vs{font-size:9px;font-weight:900;color:#94a3b8}
+
+/* MOBILE ADAPTATION FOR NEWSDESK & SPEECH BUBBLES */
+@media (max-width:800px){
+  .newsdesk-debate{display:none}
+  #newsdesk{
+    top:calc(max(8px, env(safe-area-inset-top)) + 74px);
+    bottom:auto;
+    left:14px;
+    right:14px;
+    height:25px;
+    border-radius:5px;
+    border:1px solid #ffc53d;
+    box-shadow:0 4px 16px rgba(0,0,0,0.6);
+  }
+  .newsdesk-badge{padding:0 8px;font-size:10px}
+  .ticker-item{font-size:10px}
+  .speech-bubble{font-size:13px;padding:4px 10px}
+}
+@media (max-height:540px){
+  #newsdesk{
+    top:max(52px, calc(env(safe-area-inset-top) + 48px));
+    bottom:auto;
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+    width:min(460px, 86vw);
+    height:22px;
+    border-radius:5px;
+    border:1px solid #ffc53d;
+    box-shadow:0 3px 12px rgba(0,0,0,0.6);
+  }
+  .newsdesk-badge{padding:0 6px;font-size:9px}
+  .ticker-item{font-size:9.5px}
+}
+
+/* ENHANCED 3D COMIC IMPACT CALLOUTS */
+#callout{
+  position:fixed;
+  top:44%;
+  left:50%;
+  transform:translate(-50%,-50%) rotate(-3deg);
+  z-index:12;
+  pointer-events:none;
+  font:italic 900 clamp(54px,14vw,118px)/.95 var(--display),Impact,sans-serif;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  background:linear-gradient(180deg,#ffffff 0%,#ffe066 32%,#ff8a00 78%,#d9480f 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 6px 0 #4a1500) drop-shadow(0 14px 28px rgba(0,0,0,0.85));
+  transition:opacity .15s ease-out, transform .15s ease-out;
+}
+#callout.slam-active{
+  animation:calloutSlam .32s cubic-bezier(.17,1.8,.35,1) both;
+}
+@keyframes calloutSlam{
+  0%{opacity:0;transform:translate(-50%,-50%) rotate(-8deg) scale(0.5)}
+  100%{opacity:1;transform:translate(-50%,-50%) rotate(-3deg) scale(1)}
+}
