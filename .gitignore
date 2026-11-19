@@ -6,3 +6,4 @@ check_audio.py
 inspect_gs.py
 inspect_model_rig.py
 audio/*.wav
+*.mp4
