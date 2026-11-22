@@ -415,3 +415,35 @@ body.playing:not(.game-menu-open) #newsdesk{display:flex}
   0%{opacity:0;transform:translate(-50%,-50%) rotate(-8deg) scale(0.5)}
   100%{opacity:1;transform:translate(-50%,-50%) rotate(-3deg) scale(1)}
 }
+
+.character-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  margin-top: 6px !important;
+  max-height: 220px !important;
+  overflow-y: auto !important;
+  padding-right: 4px !important;
+}
+.character {
+  height: 52px !important;
+  padding: 2px 4px !important;
+  gap: 6px !important;
+}
+.character img {
+  width: 30px !important;
+  height: 38px !important;
+  flex: none !important;
+}
+.character strong {
+  font-size: 11px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: block !important;
+}
+.hud-portrait[data-character=prachanda],.hud-portrait[data-character=coalition]{background-image:url(../portraits/prachanda.png),linear-gradient(160deg,var(--side),var(--side-deep))}
+.hud-portrait[data-character=deuba],.hud-portrait[data-character=panch]{background-image:url(../portraits/deuba.png),linear-gradient(160deg,var(--side),var(--side-deep))}
+.hud-portrait[data-character=raja],.hud-portrait[data-character=king]{background-image:url(../portraits/raja.png),linear-gradient(160deg,var(--side),var(--side-deep))}
+.hud-portrait[data-character=madhesh],.hud-portrait[data-character=tiger]{background-image:url(../portraits/madhesh.png),linear-gradient(160deg,var(--side),var(--side-deep))}
+.hud-portrait[data-character=kursi],.hud-portrait[data-character=boss]{background-image:url(../portraits/kursi.png),linear-gradient(160deg,var(--side),var(--side-deep))}
