@@ -416,34 +416,76 @@ body.playing:not(.game-menu-open) #newsdesk{display:flex}
   100%{opacity:1;transform:translate(-50%,-50%) rotate(-3deg) scale(1)}
 }
 
+/* AUTHENTIC 6-FIGHTER ROSTER & MOBILE CONTROLS */
 .character-grid {
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  gap: 6px !important;
-  margin-top: 6px !important;
-  max-height: 220px !important;
-  overflow-y: auto !important;
-  padding-right: 4px !important;
+  gap: 8px !important;
+  margin-top: 8px !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+  padding: 0 !important;
 }
 .character {
-  height: 52px !important;
-  padding: 2px 4px !important;
-  gap: 6px !important;
+  height: 58px !important;
+  padding: 2px 6px !important;
+  gap: 8px !important;
+  cursor: pointer;
+  transition: transform .15s, border-color .15s, background .15s;
+}
+.character:hover:not(:disabled) {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.character.selected {
+  border-color: var(--gold) !important;
+  background: linear-gradient(180deg, #323a50, #1e2230) !important;
+  box-shadow: 0 0 14px rgba(255, 197, 61, 0.35) !important;
 }
 .character img {
-  width: 30px !important;
-  height: 38px !important;
+  width: 34px !important;
+  height: 44px !important;
+  object-fit: cover !important;
   flex: none !important;
+  border-radius: 4px;
 }
 .character strong {
-  font-size: 11px !important;
+  font-size: 13px !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   display: block !important;
 }
-.hud-portrait[data-character=prachanda],.hud-portrait[data-character=coalition]{background-image:url(../portraits/prachanda.png),linear-gradient(160deg,var(--side),var(--side-deep))}
-.hud-portrait[data-character=deuba],.hud-portrait[data-character=panch]{background-image:url(../portraits/deuba.png),linear-gradient(160deg,var(--side),var(--side-deep))}
-.hud-portrait[data-character=raja],.hud-portrait[data-character=king]{background-image:url(../portraits/raja.png),linear-gradient(160deg,var(--side),var(--side-deep))}
-.hud-portrait[data-character=madhesh],.hud-portrait[data-character=tiger]{background-image:url(../portraits/madhesh.png),linear-gradient(160deg,var(--side),var(--side-deep))}
-.hud-portrait[data-character=kursi],.hud-portrait[data-character=boss]{background-image:url(../portraits/kursi.png),linear-gradient(160deg,var(--side),var(--side-deep))}
+
+@media (max-width: 640px) {
+  .character-grid {
+    gap: 6px !important;
+    margin-top: 6px !important;
+  }
+  .character {
+    height: 48px !important;
+    padding: 2px 4px !important;
+    gap: 5px !important;
+  }
+  .character img {
+    width: 28px !important;
+    height: 38px !important;
+  }
+  .character strong {
+    font-size: 11px !important;
+  }
+}
+
+/* MOBILE CONTROLS POINTER & TOUCH FIXES */
+#touch {
+  pointer-events: none;
+}
+#fight-stick,
+.stick-knob,
+#touch button,
+#touch [data-key],
+#touch .movement-controls,
+#touch .touch-actions {
+  pointer-events: auto !important;
+  touch-action: none !important;
+}
