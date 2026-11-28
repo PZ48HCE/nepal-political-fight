@@ -596,3 +596,18 @@ body.playing:not(.game-menu-open) #newsdesk{display:flex}
     display: none !important;
   }
 }
+
+/* Disclaimer dialog mobile usability fix */
+#disclaimer-dialog {
+  max-width: min(540px, 92vw);
+  max-height: 85vh;
+  margin: auto;
+  border-radius: 8px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+#disclaimer-dialog .btn-primary {
+  margin-top: 14px;
+  width: 100%;
+  display: block;
+}
