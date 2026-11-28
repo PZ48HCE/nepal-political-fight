@@ -611,3 +611,295 @@ body.playing:not(.game-menu-open) #newsdesk{display:flex}
   width: 100%;
   display: block;
 }
+
+/* CANONICAL 5x2 ARCADE ROSTER - ZERO DUPLICATE CARDS */
+.preview-duo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto 10px;
+}
+.preview-duo .selection {
+  flex: 1;
+  max-width: 360px;
+}
+.preview-duo .model-stage {
+  height: 200px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.preview-duo .selection.yours .model-stage:hover,
+.preview-duo .selection.yours.active-slot .model-stage {
+  border-color: #ef4444;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+}
+.preview-duo .selection.theirs .model-stage:hover,
+.preview-duo .selection.theirs.active-slot .model-stage {
+  border-color: #3b82f6;
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
+}
+
+.single-roster-section {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto 12px;
+}
+.roster-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.roster-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font: 800 13px/1 var(--display), sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.roster-tab:hover {
+  background: var(--surface-2);
+  color: #fff;
+}
+.roster-tab.active-p1 {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.18);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+}
+.roster-tab.active-p2 {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.18);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+.tab-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 18px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 900;
+  color: #fff;
+}
+.tab-indicator.p1-ind {
+  background: #ef4444;
+}
+.tab-indicator.p2-ind {
+  background: #3b82f6;
+}
+
+.arcade-5x2-roster {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.arcade-5x2-roster .character {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 6px 10px;
+  background: rgba(20, 18, 24, 0.94);
+  border: 1.5px solid #3b322a;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.arcade-5x2-roster .character:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+}
+.arcade-5x2-roster .character.p1-selected {
+  border: 2px solid #ef4444 !important;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.6), inset 0 0 10px rgba(239, 68, 68, 0.2) !important;
+  background: rgba(36, 16, 20, 0.95);
+}
+.arcade-5x2-roster .character.p2-selected {
+  border: 2px solid #3b82f6 !important;
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.6), inset 0 0 10px rgba(59, 130, 246, 0.2) !important;
+  background: rgba(16, 24, 40, 0.95);
+}
+.arcade-5x2-roster .character.p1-selected.p2-selected {
+  border: 2px solid #a855f7 !important;
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.6) !important;
+}
+
+.char-portrait-box {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #111;
+  margin-bottom: 6px;
+}
+.char-portrait-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.slot-badge {
+  position: absolute;
+  top: 3px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font: 900 10px/1.2 var(--display), sans-serif;
+  color: #fff;
+  z-index: 2;
+  display: none;
+}
+.slot-badge.p1-badge {
+  right: 3px;
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+.slot-badge.p2-badge {
+  left: 3px;
+  background: #3b82f6;
+  box-shadow: 0 0 6px #3b82f6;
+}
+.character.p1-selected .p1-badge {
+  display: block !important;
+}
+.character.p2-selected .p2-badge {
+  display: block !important;
+}
+
+.char-meta {
+  text-align: center;
+}
+.char-name {
+  display: block;
+  font: 900 13px/1.2 var(--display), sans-serif;
+  letter-spacing: 0.8px;
+  color: #fff;
+  white-space: nowrap;
+}
+.char-sub {
+  display: block;
+  font: italic 600 10px/1.2 var(--body), sans-serif;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .preview-duo {
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .preview-duo .model-stage {
+    height: 150px;
+  }
+  .arcade-5x2-roster {
+    gap: 5px;
+    padding: 0 4px;
+  }
+  .char-portrait-box {
+    width: 44px;
+    height: 44px;
+  }
+  .char-name {
+    font-size: 11px;
+  }
+  .char-sub {
+    display: none;
+  }
+}
+
+/* Authentic Character Avatar Rims & Responsive 10-in-1 / 5x2 Roster matching user mock */
+@media (min-width: 980px) {
+  .arcade-5x2-roster {
+    grid-template-columns: repeat(10, 1fr) !important;
+    max-width: 1200px !important;
+    gap: 6px !important;
+  }
+  .arcade-5x2-roster .char-portrait-box {
+    width: 52px !important;
+    height: 52px !important;
+  }
+  .arcade-5x2-roster .char-name {
+    font-size: 11.5px !important;
+  }
+  .arcade-5x2-roster .char-sub {
+    font-size: 9px !important;
+  }
+}
+
+@media (max-width: 979px) {
+  .arcade-5x2-roster {
+    grid-template-columns: repeat(5, 1fr) !important;
+    max-width: 680px !important;
+    gap: 6px !important;
+  }
+}
+
+.arcade-5x2-roster .character {
+  background: rgba(18, 14, 12, 0.94) !important;
+  border: 2px solid #2e2620 !important;
+  border-radius: 12px !important;
+  padding: 6px 4px 8px !important;
+}
+
+.arcade-5x2-roster .char-portrait-box {
+  border-radius: 10px !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.arcade-5x2-roster button[data-character="balen"] .char-portrait-box {
+  border: 2px solid #eab308 !important;
+  box-shadow: 0 0 6px rgba(234, 179, 8, 0.4) !important;
+}
+.arcade-5x2-roster button[data-character="kp"] .char-portrait-box {
+  border: 2px solid #38bdf8 !important;
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.4) !important;
+}
+.arcade-5x2-roster button[data-character="prachanda"] .char-portrait-box {
+  border: 2px solid #ef4444 !important;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.4) !important;
+}
+.arcade-5x2-roster button[data-character="rabi"] .char-portrait-box {
+  border: 2px solid #06b6d4 !important;
+  box-shadow: 0 0 6px rgba(6, 182, 212, 0.4) !important;
+}
+.arcade-5x2-roster button[data-character="punya"] .char-portrait-box {
+  border: 2px solid #22c55e !important;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.4) !important;
+}
+.arcade-5x2-roster button[data-character="deuba"] .char-portrait-box {
+  border: 2px solid #10b981 !important;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.4) !important;
+}
+.arcade-5x2-roster button[data-character="harka"] .char-portrait-box {
+  border: 2px solid #f97316 !important;
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.4) !important;
+}
+.arcade-5x2-roster button[data-character="raja"] .char-portrait-box {
+  border: 2px solid #eab308 !important;
+  box-shadow: 0 0 6px rgba(234, 179, 8, 0.4) !important;
+}
+.arcade-5x2-roster button[data-character="madhesh"] .char-portrait-box {
+  border: 2px solid #a855f7 !important;
+  box-shadow: 0 0 6px rgba(168, 85, 247, 0.4) !important;
+}
+.arcade-5x2-roster button[data-character="nepal"] .char-portrait-box {
+  border: 2px solid #ec4899 !important;
+  box-shadow: 0 0 6px rgba(236, 72, 153, 0.4) !important;
+}

@@ -213,259 +213,155 @@
           </details>
         </section>
         <div class="duel-select">
-          <section class="selection yours">
-            <div class="slot-label"><b>P1</b><span>YOUR FIGHTER</span><small>YOU</small></div>
-            <section class="model-stage" aria-label="player model preview" data-slot="player">
-              <canvas id="player-preview" aria-label="Animated player model"></canvas>
-              <div class="preview-caption">
-                <span class="preview-role">YOUR FIGHTER</span><strong class="preview-name">BALEN</strong
-                ><span class="preview-power"
-                  ><small class="power-owner">BALEN'S SUPER</small
-                  ><b class="power-name">DOZER SHAKTI</b></span
-                >
-              </div>
-              <div class="preview-loading">LOADING</div>
+          <div class="preview-duo">
+            <section class="selection yours">
+              <div class="slot-label"><b>P1</b><span>YOUR FIGHTER</span><small>YOU</small></div>
+              <section class="model-stage" aria-label="player model preview" data-slot="player">
+                <canvas id="player-preview" aria-label="Animated player model"></canvas>
+                <div class="preview-caption">
+                  <span class="preview-role">YOUR FIGHTER</span><strong class="preview-name">BALEN</strong><span class="preview-power"><small class="power-owner">BALEN'S SUPER</small><b class="power-name">DOZER SHAKTI</b></span>
+                </div>
+                <div class="preview-loading">LOADING</div>
+              </section>
             </section>
-            <div class="character-grid" role="group" aria-label="Your character">
-              <button class="character selected" data-slot="player" data-character="balen" aria-pressed="true">
-                <div class="char-portrait-box">
-                  <img src="./portraits/balen.png" alt="Balen Shah" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
+            <div class="versus">VS<span>BEST OF 3</span></div>
+            <section class="selection theirs">
+              <div class="slot-label"><b>P2</b><span>OPPONENT</span><small>CPU</small></div>
+              <section class="model-stage" aria-label="opponent model preview" data-slot="opponent">
+                <canvas id="opponent-preview" aria-label="Animated opponent model"></canvas>
+                <div class="preview-caption">
+                  <span class="preview-role">CPU OPPONENT</span><strong class="preview-name">KP</strong><span class="preview-power"><small class="power-owner">KP OLI'S SUPER</small><b class="power-name">JAHAJ SHAKTI</b></span>
                 </div>
-                <div class="char-meta">
-                  <strong class="char-name">RAPPER PM</strong>
-                  <span class="char-sub">Metro Beatdown</span>
-                  <span class="pick-label">SELECTED</span>
-                </div>
+                <div class="preview-loading">LOADING</div>
+              </section>
+            </section>
+          </div>
+
+          <!-- SINGLE 5x2 CANONICAL ROSTER — ZERO DUPLICATE CARDS -->
+          <div class="single-roster-section">
+            <div class="roster-tabs" role="tablist">
+              <button id="tab-p1" class="roster-tab active-p1" role="tab" aria-selected="true" data-slot-pick="player">
+                <span class="tab-indicator p1-ind">P1</span> SELECT YOUR FIGHTER
               </button>
-              <button class="character" data-slot="player" data-character="kp" aria-pressed="false">
-                <div class="char-portrait-box">
-                  <img src="./portraits/kp.png" alt="KP Sharma Oli" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
-                </div>
-                <div class="char-meta">
-                  <strong class="char-name">RAIL BAA</strong>
-                  <span class="char-sub">Samriddhi Tactician</span>
-                  <span class="pick-label">SELECT</span>
-                </div>
-              </button>
-              <button class="character" data-slot="player" data-character="prachanda" aria-pressed="false">
-                <div class="char-portrait-box">
-                  <img src="./portraits/prachanda.png" alt="Pushpa Kamal Dahal" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
-                </div>
-                <div class="char-meta">
-                  <strong class="char-name">COALITION DON</strong>
-                  <span class="char-sub">Master of Samikaran</span>
-                  <span class="pick-label">SELECT</span>
-                </div>
-              </button>
-              <button class="character" data-slot="player" data-character="rabi" aria-pressed="false">
-                <div class="char-portrait-box">
-                  <img src="./portraits/rabi.png" alt="Rabi Lamichhane" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
-                </div>
-                <div class="char-meta">
-                  <strong class="char-name">GHANTI BHAI</strong>
-                  <span class="char-sub">Prime-Time Striker</span>
-                  <span class="pick-label">SELECT</span>
-                </div>
-              </button>
-              <button class="character" data-slot="player" data-character="punya" aria-pressed="false">
-                <div class="char-portrait-box">
-                  <img src="./portraits/punya.png" alt="Punya Gautam" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
-                </div>
-                <div class="char-meta">
-                  <strong class="char-name">BHASHAN BRO</strong>
-                  <span class="char-sub">Debate Dynamo</span>
-                  <span class="pick-label">SELECT</span>
-                </div>
-              </button>
-              <button class="character" data-slot="player" data-character="deuba" aria-pressed="false">
-                <div class="char-portrait-box">
-                  <img src="./portraits/deuba.png" alt="Sher Bahadur Deuba" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
-                </div>
-                <div class="char-meta">
-                  <strong class="char-name">PANCH-TIME DAI</strong>
-                  <span class="char-sub">Five-Term Veteran</span>
-                  <span class="pick-label">SELECT</span>
-                </div>
-              </button>
-              <button class="character" data-slot="player" data-character="harka" aria-pressed="false">
-                <div class="char-portrait-box">
-                  <img src="./portraits/harka.png" alt="Harka Sampang" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
-                </div>
-                <div class="char-meta">
-                  <strong class="char-name">SHRAMDAN HERO</strong>
-                  <span class="char-sub">Dharan Powerhouse</span>
-                  <span class="pick-label">SELECT</span>
-                </div>
-              </button>
-              <button class="character" data-slot="player" data-character="raja" aria-pressed="false">
-                <div class="char-portrait-box">
-                  <img src="./portraits/raja.png" alt="Gyanendra Shah" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
-                </div>
-                <div class="char-meta">
-                  <strong class="char-name">HALO RAJA</strong>
-                  <span class="char-sub">Heritage Striker</span>
-                  <span class="pick-label">SELECT</span>
-                </div>
-              </button>
-              <button class="character" data-slot="player" data-character="madhesh" aria-pressed="false">
-                <div class="char-portrait-box">
-                  <img src="./portraits/madhesh.png" alt="Upendra Yadav" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
-                </div>
-                <div class="char-meta">
-                  <strong class="char-name">MADHESH TIGER</strong>
-                  <span class="char-sub">Terai Thunder</span>
-                  <span class="pick-label">SELECT</span>
-                </div>
-              </button>
-              <button class="character" data-slot="player" data-character="nepal" aria-pressed="false">
-                <div class="char-portrait-box">
-                  <img src="./portraits/nepal.png" alt="Madhav Kumar Nepal" width="48" height="48" />
-                  <span class="slot-badge p1-badge">P1</span>
-                </div>
-                <div class="char-meta">
-                  <strong class="char-name">CHIYA MANTRI</strong>
-                  <span class="char-sub">Manifesto Trickster</span>
-                  <span class="pick-label">SELECT</span>
-                </div>
+              <button id="tab-p2" class="roster-tab" role="tab" aria-selected="false" data-slot-pick="opponent">
+                <span class="tab-indicator p2-ind">P2</span> SELECT CPU OPPONENT
               </button>
             </div>
-          </section>
-          <div class="versus">VS<span>BEST OF 3</span></div>
-          <section class="selection theirs">
-            <div class="slot-label"><b>P2</b><span>OPPONENT</span><small>CPU</small></div>
-            <section class="model-stage" aria-label="opponent model preview" data-slot="opponent">
-              <canvas id="opponent-preview" aria-label="Animated opponent model"></canvas>
-              <div class="preview-caption">
-                <span class="preview-role">CPU OPPONENT</span><strong class="preview-name">KP</strong
-                ><span class="preview-power"
-                  ><small class="power-owner">KP OLI'S SUPER</small
-                  ><b class="power-name">JAHAJ SHAKTI</b></span
-                >
-              </div>
-              <div class="preview-loading">LOADING</div>
-            </section>
-            <div class="character-grid" role="group" aria-label="Opponent character">
-              <button class="character" data-slot="opponent" data-character="balen" aria-pressed="false">
+            <div class="character-grid arcade-5x2-roster" role="group" aria-label="Arcade Character Selection">
+              <!-- ROW 1 -->
+              <button class="character p1-selected" data-character="balen">
                 <div class="char-portrait-box">
-                  <img src="./portraits/balen.png" alt="Balen Shah" width="48" height="48" />
+                  <img src="./portraits/balen.png" alt="Balen Shah" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">RAPPER PM</strong>
                   <span class="char-sub">Metro Beatdown</span>
-                  <span class="pick-label">SELECT</span>
                 </div>
               </button>
-              <button class="character selected" data-slot="opponent" data-character="kp" aria-pressed="true">
+              <button class="character p2-selected" data-character="kp">
                 <div class="char-portrait-box">
-                  <img src="./portraits/kp.png" alt="KP Sharma Oli" width="48" height="48" />
+                  <img src="./portraits/kp.png" alt="KP Sharma Oli" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">RAIL BAA</strong>
                   <span class="char-sub">Samriddhi Tactician</span>
-                  <span class="pick-label">SELECTED</span>
                 </div>
               </button>
-              <button class="character" data-slot="opponent" data-character="prachanda" aria-pressed="false">
+              <button class="character" data-character="prachanda">
                 <div class="char-portrait-box">
-                  <img src="./portraits/prachanda.png" alt="Pushpa Kamal Dahal" width="48" height="48" />
+                  <img src="./portraits/prachanda.png" alt="Pushpa Kamal Dahal" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">COALITION DON</strong>
                   <span class="char-sub">Master of Samikaran</span>
-                  <span class="pick-label">SELECT</span>
                 </div>
               </button>
-              <button class="character" data-slot="opponent" data-character="rabi" aria-pressed="false">
+              <button class="character" data-character="rabi">
                 <div class="char-portrait-box">
-                  <img src="./portraits/rabi.png" alt="Rabi Lamichhane" width="48" height="48" />
+                  <img src="./portraits/rabi.png" alt="Rabi Lamichhane" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">GHANTI BHAI</strong>
                   <span class="char-sub">Prime-Time Striker</span>
-                  <span class="pick-label">SELECT</span>
                 </div>
               </button>
-              <button class="character" data-slot="opponent" data-character="punya" aria-pressed="false">
+              <button class="character" data-character="punya">
                 <div class="char-portrait-box">
-                  <img src="./portraits/punya.png" alt="Punya Gautam" width="48" height="48" />
+                  <img src="./portraits/punya.png" alt="Punya Gautam" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">BHASHAN BRO</strong>
                   <span class="char-sub">Debate Dynamo</span>
-                  <span class="pick-label">SELECT</span>
                 </div>
               </button>
-              <button class="character" data-slot="opponent" data-character="deuba" aria-pressed="false">
+              <!-- ROW 2 -->
+              <button class="character" data-character="deuba">
                 <div class="char-portrait-box">
-                  <img src="./portraits/deuba.png" alt="Sher Bahadur Deuba" width="48" height="48" />
+                  <img src="./portraits/deuba.png" alt="Sher Bahadur Deuba" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">PANCH-TIME DAI</strong>
                   <span class="char-sub">Five-Term Veteran</span>
-                  <span class="pick-label">SELECT</span>
                 </div>
               </button>
-              <button class="character" data-slot="opponent" data-character="harka" aria-pressed="false">
+              <button class="character" data-character="harka">
                 <div class="char-portrait-box">
-                  <img src="./portraits/harka.png" alt="Harka Sampang" width="48" height="48" />
+                  <img src="./portraits/harka.png" alt="Harka Sampang" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">SHRAMDAN HERO</strong>
                   <span class="char-sub">Dharan Powerhouse</span>
-                  <span class="pick-label">SELECT</span>
                 </div>
               </button>
-              <button class="character" data-slot="opponent" data-character="raja" aria-pressed="false">
+              <button class="character" data-character="raja">
                 <div class="char-portrait-box">
-                  <img src="./portraits/raja.png" alt="Gyanendra Shah" width="48" height="48" />
+                  <img src="./portraits/raja.png" alt="King Gyanendra" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">HALO RAJA</strong>
                   <span class="char-sub">Heritage Striker</span>
-                  <span class="pick-label">SELECT</span>
                 </div>
               </button>
-              <button class="character" data-slot="opponent" data-character="madhesh" aria-pressed="false">
+              <button class="character" data-character="madhesh">
                 <div class="char-portrait-box">
-                  <img src="./portraits/madhesh.png" alt="Upendra Yadav" width="48" height="48" />
+                  <img src="./portraits/madhesh.png" alt="Upendra Yadav" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">MADHESH TIGER</strong>
                   <span class="char-sub">Terai Thunder</span>
-                  <span class="pick-label">SELECT</span>
                 </div>
               </button>
-              <button class="character" data-slot="opponent" data-character="nepal" aria-pressed="false">
+              <button class="character" data-character="nepal">
                 <div class="char-portrait-box">
-                  <img src="./portraits/nepal.png" alt="Madhav Kumar Nepal" width="48" height="48" />
+                  <img src="./portraits/nepal.png" alt="Madhav Kumar Nepal" width="56" height="56" />
+                  <span class="slot-badge p1-badge">P1</span>
                   <span class="slot-badge p2-badge">P2</span>
                 </div>
                 <div class="char-meta">
                   <strong class="char-name">CHIYA MANTRI</strong>
                   <span class="char-sub">Manifesto Trickster</span>
-                  <span class="pick-label">SELECT</span>
                 </div>
               </button>
             </div>
-          </section>
+          </div>
         </div>
         <div class="menu-bottom">
           <label class="difficulty-label"
