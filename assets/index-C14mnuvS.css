@@ -903,3 +903,113 @@ body.playing:not(.game-menu-open) #newsdesk{display:flex}
   border: 2px solid #ec4899 !important;
   box-shadow: 0 0 6px rgba(236, 72, 153, 0.4) !important;
 }
+
+
+/* FORCE SINGLE COLUMN LAYOUT FOR DUEL-SELECT (PREVIEW ON TOP, ROSTER ON BOTTOM) */
+.duel-select {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  gap: 12px !important;
+}
+
+.preview-duo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 860px !important;
+  margin: 0 auto 6px !important;
+  gap: 16px !important;
+}
+
+.preview-duo .selection {
+  flex: 1 1 300px !important;
+  max-width: 380px !important;
+  min-width: 0 !important;
+}
+
+.preview-duo .model-stage {
+  height: 180px !important;
+}
+
+.single-roster-section {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+
+@media (max-width: 768px) {
+  .duel-select {
+    gap: 8px !important;
+  }
+  .preview-duo {
+    gap: 10px !important;
+    margin-bottom: 4px !important;
+  }
+  .preview-duo .model-stage {
+    height: 140px !important;
+  }
+  .preview-duo .selection {
+    max-width: 170px !important;
+  }
+  .arcade-5x2-roster {
+    grid-template-columns: repeat(5, 1fr) !important;
+    max-width: 100% !important;
+    gap: 4px !important;
+  }
+  .arcade-5x2-roster .character {
+    padding: 4px 2px 6px !important;
+  }
+  .arcade-5x2-roster .char-portrait-box {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .arcade-5x2-roster .char-name {
+    font-size: 10.5px !important;
+    letter-spacing: 0.3px !important;
+  }
+}
+
+.arcade-5x2-roster .char-name {
+  font: 900 11px/1.1 var(--display), sans-serif !important;
+  text-align: center !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  margin-top: 3px !important;
+  color: #fff !important;
+}
+.arcade-5x2-roster .char-sub {
+  font: 600 9px/1 var(--body), sans-serif !important;
+  text-align: center !important;
+  color: #a5acbd !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+/* Fix character card div collision: ensure portrait box is on top, meta below */
+.arcade-5x2-roster .character > div.char-portrait-box {
+  position: relative !important;
+  inset: auto !important;
+  padding: 0 !important;
+  background: #0b0c11 !important;
+  margin: 0 auto 4px !important;
+}
+.arcade-5x2-roster .character > div.char-meta {
+  position: relative !important;
+  inset: auto !important;
+  padding: 0 !important;
+  background: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
